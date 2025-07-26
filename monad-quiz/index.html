@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Monad Quiz - Welcome</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Gate images for open gate effect -->
+  <img src="assets/gate-left.png" id="gate-left" alt="Gate Left" />
+  <img src="assets/gate-right.png" id="gate-right" alt="Gate Right" />
+
+  <!-- Glowing start text -->
+  <div id="start-text">Press anywhere to start</div>
+
+  <!-- Name input screen -->
+  <div id="name-screen">
+    <input
+      type="text"
+      id="player-name"
+      placeholder="Enter your name"
+      maxlength="15"
+      autocomplete="off"
+    />
+    <button id="name-submit">Start Quiz</button>
+    <p id="name-error" style="color:red; display:none;">This username is already taken on this device.</p>
+  </div>
+
+  <!-- Leaderboard -->
+  <div id="leaderboard">
+    <h2>Top Scorers</h2>
+    <ul id="leaderboard-list"></ul>
+  </div>
+
+  <footer>Built with ❤️ for the Monad community</footer>
+
+  <script>
+    const gateLeft = document.getElementById('gate-left');
+    const gateRight = document.getElementById('gate-right');
+    const startText = document.getElementById('start-text');
+    const nameScreen = document.getElementById('name-screen');
+    const leaderboard = document.getElementById('leaderboard');
+    const playerNameInput = document.getElementById('player-name');
+    const nameSubmitBtn = document.getElementById('name-submit');
+    const nameError = document.getElementById('name-error');
+    const leaderboardList = document.getElementById('leaderboard-list');
+
+    function loadLeaderboard() {
+      const scores = JSON.parse(localStorage.getItem('monadQuizScores') || '[]');
+      leaderboardList.innerHTML = '';
+      if (scores.length === 0) {
+        leaderboardList.innerHTML = '<li>No scores yet.</li>';
+        return;
+      }
+      scores.sort((a,b) => b.score - a.score);
+      scores.slice(0,10).forEach(({name, score}) => {
+        const li = document.createElement('li');
+        li.textContent = `${name} - ${score} / 18`;
+        leaderboardList.appendChild(li);
+      });
+    }
+
+    function generateToken() {
+      return Math.random().toString(36).substr(2, 9);
+    }
+
+    function saveUser(name) {
+      const stored = localStorage.getItem('monadQuizUser');
+      if (!stored) {
+        const token = generateToken();
+        const userObj = { name, token };
+        localStorage.setItem('monadQuizUser', JSON.stringify(userObj));
+        sessionStorage.setItem('playerName', name);
+        return true;
+      } else {
+        const userObj = JSON.parse(stored);
+        if (userObj.name === name) {
+          sessionStorage.setItem('playerName', name);
+          return true;
+        } else {
+          return false; // name already taken on this device
+        }
+      }
+    }
+
+    function openGate() {
+      gateLeft.classList.add('gate-open');
+      gateRight.classList.add('gate-open');
+      startText.style.display = 'none';
+      setTimeout(() => {
+        nameScreen.style.display = 'flex';
+        leaderboard.style.display = 'block';
+        playerNameInput.focus();
+      }, 2000);
+    }
+
+    startText.addEventListener('click', openGate);
+    document.body.addEventListener('click', (e) => {
+      if (nameScreen.style.display === 'flex' || leaderboard.style.display === 'block') return;
+      openGate();
+    });
+
+    nameSubmitBtn.addEventListener('click', () => {
+      const name = playerNameInput.value.trim();
+      if (!name) {
+        alert('Please enter your name to start the quiz.');
+        playerNameInput.focus();
+        return;
+      }
+      const success = saveUser(name);
+      if (success) {
+        window.location.href = 'quiz.html';
+      } else {
+        nameError.style.display = 'block';
+      }
+    });
+
+    playerNameInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') nameSubmitBtn.click();
+    });
+
+    loadLeaderboard();
+  </script>
+</body>
+</html>

@@ -1,0 +1,244 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Cosmic purple background */
+body {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  background: radial-gradient(circle at center, #2a004f 0%, #0d011b 100%);
+  color: #f0eaff;
+  text-align: center;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.container {
+  padding: 40px 20px;
+  flex-grow: 1;
+}
+
+/* Gate images */
+#gate-left, #gate-right {
+  position: fixed;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 10;
+  transition: all 2s ease;
+  pointer-events: none;
+}
+
+#gate-left {
+  left: 0;
+}
+
+#gate-right {
+  right: 0;
+}
+
+.gate-open#gate-left {
+  transform: translateX(-100%);
+}
+
+.gate-open#gate-right {
+  transform: translateX(100%);
+}
+
+.gate-open {
+  pointer-events: none;
+}
+
+/* Glowing start text */
+#start-text {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  color: #ffe600;
+  text-shadow: 0 0 10px #fff700;
+  animation: glow 1.5s infinite alternate;
+  cursor: pointer;
+  z-index: 20;
+}
+
+/* Glow animation */
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #fff700;
+  }
+  to {
+    text-shadow: 0 0 20px #fff700, 0 0 30px #ff0;
+  }
+}
+
+/* Name input screen */
+#name-screen {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 30;
+  background: rgba(42, 0, 79, 0.9);
+  padding: 30px 40px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px #9c75ff;
+}
+
+#name-screen input {
+  padding: 10px 15px;
+  font-size: 1.3rem;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 15px;
+  width: 280px;
+}
+
+#name-screen button {
+  padding: 12px 25px;
+  background-color: #ffe600;
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease;
+}
+
+#name-screen button:hover {
+  background-color: #ffcc00;
+}
+
+/* Leaderboard */
+#leaderboard {
+  display: none;
+  position: fixed;
+  top: 10%;
+  right: 2%;
+  background: rgba(58, 0, 110, 0.85);
+  border-radius: 12px;
+  box-shadow: 0 0 15px #7a2fff;
+  color: #ffe600;
+  padding: 15px 20px;
+  width: 200px;
+  z-index: 20;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+#leaderboard h2 {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+  color: #00ff99;
+}
+
+#leaderboard ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+#leaderboard li {
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+}
+
+/* Quiz container */
+#quiz-container {
+  max-width: 700px;
+  margin: 40px auto 20px;
+  background: rgba(42, 0, 79, 0.85);
+  padding: 30px 40px;
+  border-radius: 20px;
+  box-shadow: 0 0 40px #9c75ff;
+  display: none;
+  flex-direction: column;
+}
+
+.question {
+  font-size: 1.6rem;
+  margin-bottom: 25px;
+  font-weight: 700;
+  color: #d9caff;
+}
+
+.answers button {
+  background: #7e57c2;
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  margin: 10px auto;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  width: 90%;
+  max-width: 450px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: block;
+}
+
+.answers button:hover {
+  background-color: #9c75ff;
+}
+
+.answers button.correct {
+  background-color: #00e676 !important;
+  color: black;
+}
+
+.answers button.wrong {
+  background-color: #ff3d00 !important;
+  color: white;
+}
+
+#timer {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-top: 20px;
+  color: #fff700;
+  text-shadow: 0 0 8px #fff700aa;
+}
+
+/* Result & Restart */
+#result {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-top: 35px;
+  color: #ffe600;
+}
+
+#restart-button {
+  background-color: #ffd600;
+  border: none;
+  color: black;
+  font-weight: 700;
+  padding: 12px 30px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.3rem;
+  margin-top: 20px;
+  display: none;
+  transition: background-color 0.3s ease;
+}
+
+#restart-button:hover {
+  background-color: #ffcc00;
+}
+
+/* Footer */
+footer {
+  margin: 30px 0 20px;
+  font-size: 1rem;
+  color: #d1c4e9;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+}

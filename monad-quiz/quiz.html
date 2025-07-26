@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Monad Quiz</title>
+  <style>
+    body { background: #2c0e64; color: #fff; font-family: 'Comic Sans MS', cursive; text-align:center; }
+    #answer-buttons button { display:block; margin: 10px auto; padding:10px 20px; }
+    .correct { background-color: green; }
+    .wrong { background-color: red; }
+  </style>
+</head>
+<body>
+  <h1>Monad Quiz</h1>
+  <div id="timer">13</div>
+  <div id="question"></div>
+  <div id="answer-buttons"></div>
+  <div id="result"></div>
+  <button id="restart-button" style="display:none;">Restart Quiz</button>
+
+  <script src="quiz.js"></script>
+  <script src="game.js"></script>
+  <footer style="margin-top:40px;">
+  <button id="back-home-button" style="padding:10px 20px; font-size:1rem; cursor:pointer;">
+    Back to Home
+  </button>
+</footer>
+
+</body>
+</html>
